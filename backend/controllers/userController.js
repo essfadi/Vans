@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
 
 const User = require("../models/userModel");
+const Schedule = require("../models/scheduleModel");
 
 //@desc    Regsiter new User
 //@route   POST /api/user/register
@@ -140,10 +141,35 @@ const createDriver = asyncHandler(async (req, res) => {
   }
 });
 
+//@desc    Get Driver's Schedule
+//@route  GET /api/driver/schedule
+//@access Private
+const getDriverSchedule = asyncHandler(async (req, res) => {
+  const driver = await User.findById(req.user.id);
+  if (!driver) {
+    return res.status(400).json({
+      success: false,
+      message: "Driver not found",
+    });
+  }
+  const schedule = await Schedule.find({ driver: driver.name });
+  if (schedule) {
+    res.status(200).json({
+      schedule,
+      message: "Driver's schedule fetched successfully",
+    });
+  }
+  else {
+    res.status(400)
+    throw new Error("Driver's schedule not found");
+  }
+});
+
 module.exports = {
   registerUser,
   loginUser,
   getData,
   getAllUsers,
   createDriver,
+  getDriverSchedule,
 };
