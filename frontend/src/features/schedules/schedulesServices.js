@@ -4,7 +4,12 @@ const API_URL = "/api/schedule/";
 
 //Get Schedule
 const getAllSchedules = async (user) => {
-    const response = await axios.get(API_URL, user);
+    const response = await axios.get(API_URL, {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`
+        }
+    });
     if (response.data) {
         localStorage.setItem("schedules", JSON.stringify(response.data));
     }

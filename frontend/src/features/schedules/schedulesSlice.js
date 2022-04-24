@@ -11,7 +11,7 @@ const initialState = {
     message: "",
 };
 
-const getSchedules = createAsyncThunk(
+export const getSchedules = createAsyncThunk(
     "schedules/getSchedules",
     async (user, thunkAPI) => {
         try {

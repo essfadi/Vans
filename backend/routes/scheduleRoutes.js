@@ -5,7 +5,7 @@ const {createSchedule, getAllSchedules, getScheduleByStartDateTime} = require('.
 const {protected} = require('../middlewares/authMiddleware');
 const {adminMiddleware} = require('../middlewares/rolesMiddleware');
 
-router.route('/').post(protected, adminMiddleware, createSchedule).get(protected, getAllSchedules);
+router.route('/').get(protected, getAllSchedules).post(protected, adminMiddleware, createSchedule);
 router.route('/:startDateTime').get(protected, getScheduleByStartDateTime);
 // Still we can add more routes here such as Update and Delete
 

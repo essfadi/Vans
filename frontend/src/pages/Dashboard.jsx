@@ -1,10 +1,10 @@
 import React from 'react';
-import Table from '../components/Table/Table';
+import MyTable from '../components/Table/index';
 
 const Dashboard = () => {
   return (
     <div>
-      <Table />
+      <MyTable />
     </div>
   )
 }
