@@ -24,9 +24,9 @@ const Login = () => {
     if (isError) {
       toast.error(message)
     }
-    if (isSuccess) {
-      toast.success(message)
+    if (isSuccess && user) {
       navigate('/')
+      toast.success(`${user.name} has been logged in successfully`);
     }
   }, [user, isLoading, isError, isSuccess, navigate, dispatch])
 

@@ -1,9 +1,19 @@
 import {useState} from 'react'
 import Logo from "../../assets/logo.png";
-import {Nav, Bars, NavMenu, NavBtn, NavBtnLink, NavBrand, NavLink} from "./Navbar";
+import {Nav, Bars, NavMenu, NavBtn, NavBtnLink, NavBrand, NavLink, LogoutButton} from "./Navbar";
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutUser, reset } from '../../features/users/usersSlice';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    
+    const {user, isAuthenticated} = useSelector(state => state.user);
+
+
     const toggleHandler = () => {
         if (isOpen) {
             setIsOpen(false);
@@ -11,6 +21,23 @@ const Navbar = () => {
             setIsOpen(true);
         }
     };
+    const onLogout = () => {
+        dispatch(logoutUser());
+        dispatch(reset());
+        navigate("/");
+      };
+    const buttonsHandler = (e) => {
+        if (e) {
+            return (
+                <LogoutButton onClick={onLogout}>Log Out</LogoutButton>
+            )
+        } else {
+           return ( <>
+            <NavBtnLink to="/login">Login</NavBtnLink>
+            <NavBtnLink to="/signup">Sign Up</NavBtnLink>
+            </>)
+        }
+    }
   return (
     <Nav>
         <NavLink to="/">
@@ -18,14 +45,13 @@ const Navbar = () => {
         </NavLink>
         <Bars onClick={toggleHandler}/>
        <NavMenu toggle={isOpen}>
-            <NavLink to="/" activestyle>Home</NavLink>
-            <NavLink to={`/dashboard/${404}`}>Dashboard</NavLink>
+            <NavLink to="/" activeStyle>Home</NavLink>
+            {isAuthenticated? <NavLink to={`/dashboard/${user? user.id: ''}`}>Dashboard</NavLink>: ''}
             <NavLink to="/about" >About US</NavLink>
             <NavLink to="/contact">Contact Us</NavLink>
         </NavMenu>
         <NavBtn toggle={isOpen}>
-            <NavBtnLink to="/login">Login</NavBtnLink>
-            <NavBtnLink to="/signup">Sign Up</NavBtnLink>
+            {buttonsHandler(isAuthenticated)}
         </NavBtn>
     </Nav>
 )

@@ -9,10 +9,12 @@ import Dashboard from "./pages/Dashboard";
 import ContactUs from "./pages/ContactUs";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
-
-
+import NotFound from "./pages/NotFound";
+import { useSelector } from "react-redux";
 
 function App() {
+  const isAuthenticated = useSelector(state => state.user.isAuthenticated);
+
   return (
     <>
       <Router>
@@ -20,10 +22,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutUs />} />
-          <Route path="/dashboard/:id" element={<Dashboard />} />
+          {isAuthenticated ? <Route path="/dashboard/:id" element={<Dashboard />} />: ''}
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
       <ToastContainer />

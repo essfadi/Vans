@@ -131,3 +131,24 @@ export const NavBrand = styled.img`
     height: 80px;
   }
 `;
+
+export const LogoutButton = styled.button`
+  text-decoration: none;
+  border-radius: 4px;
+  background: #66101F;
+  padding: 10px 72px;
+  color: #fff;
+  font-size: 1.2rem;
+  border: none;
+  outline: none;
+  margin: 0 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  
+  &:hover {
+    transition: all 0.3s ease-in-out;
+    background: #F5E960;
+    color: #66101F;
+    font-weight: 600;
+  }
+`;
