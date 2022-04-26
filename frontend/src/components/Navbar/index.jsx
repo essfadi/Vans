@@ -46,7 +46,7 @@ const Navbar = () => {
         <Bars onClick={toggleHandler}/>
        <NavMenu toggle={isOpen}>
             <NavLink to="/" activeStyle>Home</NavLink>
-            {isAuthenticated? <NavLink to={`/dashboard/${user? user.id: ''}`}>Dashboard</NavLink>: ''}
+            {isAuthenticated? <NavLink to={`/dashboard/${user? user.id: ''}`}>Schedule</NavLink>: ''}
             <NavLink to="/about" >About US</NavLink>
             <NavLink to="/contact">Contact Us</NavLink>
         </NavMenu>
